@@ -29,10 +29,20 @@ fun Greeting(name: String) {
     Text(text = "Hello $name!")
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, name = "App")
 @Composable
 fun DefaultPreview() {
     ShareToClipboardTheme {
         Greeting("Android")
+    }
+}
+
+@Preview(showBackground = true, name = "App Dark")
+@Composable
+fun DefaultPreviewDark() {
+    ShareToClipboardTheme(darkTheme = true) {
+        Surface(color = MaterialTheme.colors.background) {
+            Greeting("Android")
+        }
     }
 }
