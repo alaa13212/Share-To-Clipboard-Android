@@ -6,7 +6,7 @@ import androidx.core.content.*
 import java.lang.UnsupportedOperationException
 
 
-class CopyService(context: Context) : ICopyService {
+class CopyService(private val context: Context) : ICopyService {
 
     private val clipboard by lazy {
         context.getSystemService<ClipboardManager>()
@@ -19,14 +19,13 @@ class CopyService(context: Context) : ICopyService {
     }
 
     override fun getCopiedText(): String? {
-        if(!clipboard.hasPrimaryClip()) return null
         val clipData = clipboard.primaryClip ?: return null
         if(!clipData.description.hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN)) return null
 
         for (index in 0 until clipData.itemCount) {
             val item = clipData.getItemAt(index)
             if(item.text != null)
-                return item.text.toString()
+                return item.coerceToText(context).toString()
         }
 
         return null

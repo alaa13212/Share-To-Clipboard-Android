@@ -19,6 +19,12 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.CopyActivity"
+            android:exported="true"
+            android:label="@string/copy"
+            android:theme="@style/Theme.ShareToClipboard.NoActionBar">
 
             <intent-filter >
                 <action android:name="android.intent.action.SEND"/>

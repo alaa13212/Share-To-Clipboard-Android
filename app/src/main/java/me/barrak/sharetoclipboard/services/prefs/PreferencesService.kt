@@ -1,6 +1,7 @@
 package me.barrak.sharetoclipboard.services.prefs
 
 import android.content.*
+import androidx.compose.runtime.*
 import java.lang.UnsupportedOperationException
 
 class PreferencesService(context: Context) : IPreferencesService {
@@ -10,9 +11,8 @@ class PreferencesService(context: Context) : IPreferencesService {
             ?: throw UnsupportedOperationException("Clipboard service not available")
     }
 
-    var autoClose: Boolean by booleanPref("autoClose")
-
-
+    override var autoCopy: Boolean by booleanPref("autoCopy")
+    override var autoClose: Boolean by booleanPref("autoClose")
 
 
 }

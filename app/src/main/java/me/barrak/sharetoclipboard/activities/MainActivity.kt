@@ -1,23 +1,24 @@
 package me.barrak.sharetoclipboard.activities
 
-import android.os.Bundle
+import android.os.*
 import androidx.activity.*
-import androidx.activity.compose.setContent
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.activity.compose.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.*
+import me.barrak.sharetoclipboard.services.copy.*
+import me.barrak.sharetoclipboard.services.navigation.*
 import me.barrak.sharetoclipboard.services.prefs.*
 import me.barrak.sharetoclipboard.services.share.*
 import me.barrak.sharetoclipboard.ui.*
 import me.barrak.sharetoclipboard.ui.main.*
 
 class MainActivity : ComponentActivity() {
-    val viewModel: MainViewModel by viewModels {
-        val preferencesService = PreferencesService(applicationContext)
-        val shareService = ShareService(applicationContext)
-        MainViewModelFactory(preferencesService, shareService)
+    private val viewModel: MainViewModel by viewModels {
+        val preferencesService = PreferencesService(this)
+        val shareService = ShareService(this)
+        val copyService = CopyService(this)
+        val navigationService = NavigationService(this)
+        MainViewModelFactory(preferencesService, shareService, copyService, navigationService)
     }
 
 
@@ -26,28 +27,20 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             App {
-                // A surface container using the 'background' color from the theme
-                Surface(color = MaterialTheme.colors.background) {
-
-                }
+                MainScreen(viewModel)
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
 @Preview(showBackground = true, name = "App")
 @Composable
-fun DefaultPreview() = App {
-    Greeting("Android")
+private fun DefaultPreview() = App {
+    MainScreen(MockMainViewModel())
 }
 
 @Preview(showBackground = true, name = "App Dark")
 @Composable
-fun DefaultPreviewDark() = DarkApp {
-    Greeting("Android")
+private fun DefaultPreviewDark() = DarkApp {
+    MainScreen(MockMainViewModel())
 }

@@ -5,19 +5,23 @@ import androidx.lifecycle.*
 import me.barrak.sharetoclipboard.services.copy.*
 import me.barrak.sharetoclipboard.services.extract.*
 
-class CopyViewModel(
+class CopyViewModel (
     private val copyService: ICopyService,
     private val textExtractor: ITextExtractor,
-) : ViewModel() {
+) : ViewModel(), ICopyViewModel {
 
-    var items: List<String> by mutableStateOf(listOf())
+    override var items: List<String> by mutableStateOf(listOf())
         private set
 
-    fun copyItem(text: String) {
+    override fun copyItem(text: String) {
         copyService.copy(text)
     }
 
-    fun processText(text: String) {
+    override fun processText(text: String) {
         items = textExtractor.extractElements(text)
+    }
+
+    override fun getCopiedText(): String {
+        return copyService.getCopiedText() ?: ""
     }
 }
