@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Share To Clipboard</string>
+    <string name="share_copied_text">Share Copied Text</string>
 </resources>
