@@ -13,7 +13,7 @@ class CopyViewModel (
     private val preferencesService: IPreferencesService,
 ) : ViewModel(), ICopyViewModel {
 
-    override var items: List<String> by mutableStateOf(listOf())
+    override var items: List<TextElement> by mutableStateOf(listOf())
         private set
 
     override val onItemCopied: Event = Event()
@@ -28,7 +28,8 @@ class CopyViewModel (
     }
 
     override fun processText(text: String) {
-        items = textExtractor.extractElements(text)
+        val list = textExtractor.extractElements(text)
+        items = list.take(1) + list.drop(1).filterNot { it.primaryElement == list.firstOrNull()?.primaryElement && it.elements.isEmpty() }
     }
 
     override fun getCopiedText(): String {

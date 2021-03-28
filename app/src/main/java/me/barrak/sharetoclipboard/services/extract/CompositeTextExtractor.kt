@@ -4,7 +4,7 @@ class CompositeTextExtractor(
     private var extractors: List<ITextExtractor> = listOf(IdentityTextExtractor())
 ) : ITextExtractor {
 
-    override fun extractElements(text: String): List<String> {
+    override fun extractElements(text: String): List<TextElement> {
          return extractors.flatMap { it.extractElements(text) }
     }
 

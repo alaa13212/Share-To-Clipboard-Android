@@ -11,8 +11,10 @@ import androidx.compose.ui.res.*
 import androidx.compose.ui.tooling.preview.*
 import androidx.compose.ui.unit.*
 import me.barrak.sharetoclipboard.R
+import me.barrak.sharetoclipboard.services.extract.*
 import me.barrak.sharetoclipboard.ui.*
 import me.barrak.sharetoclipboard.ui.components.*
+import java.util.*
 
 @Composable
 fun CopyScreen(
@@ -36,19 +38,9 @@ fun CopyScreen(
                 }
 
                 items(viewModel.items) { item ->
-                    Card(
-                        modifier = Modifier
-                            .padding(10.dp)
-                            .fillMaxWidth()
-                            .clickable(onClick = { viewModel.copyItem(item) }),
-                        shape = RoundedCornerShape(8.dp),
-                        elevation = 4.dp,
-                    ) {
-                        Text(
-                            modifier = Modifier.padding(16.dp),
-                            text = item,
-                            style = MaterialTheme.typography.body1
-                        )
+                    when(item.elements.size){
+                        0 -> SingleItemCard(text = item, onClick = viewModel::copyItem)
+                        else -> ExtendedItemCard(text = item, onClick = viewModel::copyItem)
                     }
                 }
             }

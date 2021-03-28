@@ -42,7 +42,7 @@ class CopyActivity : ComponentActivity() {
             if(sharedText.isNotBlank()) {
                 viewModel.processText(sharedText)
                 if(viewModel.items.size == 1 && viewModel.autoCopy) {
-                    viewModel.copyItem(viewModel.items.first())
+                    viewModel.copyItem(viewModel.items.first().primaryElement)
                     if(viewModel.autoClose)
                         finish()
                 }

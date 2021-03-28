@@ -1,9 +1,10 @@
 package me.barrak.sharetoclipboard.ui.copy
 
+import me.barrak.sharetoclipboard.services.extract.*
 import me.barrak.sharetoclipboard.util.events.*
 
 interface ICopyViewModel {
-    val items: List<String>
+    val items: List<TextElement>
     val onItemCopied: Event
 
     val autoCopy: Boolean
