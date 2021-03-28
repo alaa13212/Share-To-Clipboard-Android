@@ -16,6 +16,7 @@
     <string name="type_full_text">Full Text</string>
     <string name="type_number">Number</string>
     <string name="type_link">Link</string>
+    <string name="type_email">Email</string>
     <string name="other_formats">Other Formats</string>
     <string name="more">More</string>
     <string name="less">Less</string>

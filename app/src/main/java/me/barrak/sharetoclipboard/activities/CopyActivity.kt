@@ -20,7 +20,7 @@ import me.barrak.sharetoclipboard.util.*
 class CopyActivity : ComponentActivity() {
     private val viewModel: CopyViewModel by viewModels{
         val copyService = CopyService(this)
-        val extractor = CompositeTextExtractor(listOf(IdentityTextExtractor(), UriTextExtractor(), NumbersTextExtractor()))
+        val extractor = CompositeTextExtractor(listOf(IdentityTextExtractor(), EmailTextExtractor(), UriTextExtractor(), NumbersTextExtractor()))
         val preferencesService = PreferencesService(this)
         CopyViewModelFactory(copyService, extractor, preferencesService)
     }
