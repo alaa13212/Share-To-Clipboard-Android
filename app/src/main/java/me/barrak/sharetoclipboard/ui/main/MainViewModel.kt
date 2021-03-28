@@ -32,6 +32,7 @@ class MainViewModel(
             preferencesService.autoClose = value
             _autoClose = value
         }
+
     init {
         // TODO this is hacky, switch to events when possible. Or use different architecture
         viewModelScope.launch {

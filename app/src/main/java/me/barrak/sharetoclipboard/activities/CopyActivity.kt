@@ -5,28 +5,31 @@ import android.os.*
 import android.widget.*
 import androidx.activity.*
 import androidx.activity.compose.*
-import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.tooling.preview.*
 import androidx.lifecycle.*
 import kotlinx.coroutines.*
+import me.barrak.sharetoclipboard.R
 import me.barrak.sharetoclipboard.services.copy.*
 import me.barrak.sharetoclipboard.services.extract.*
+import me.barrak.sharetoclipboard.services.prefs.*
 import me.barrak.sharetoclipboard.ui.*
 import me.barrak.sharetoclipboard.ui.copy.*
-import me.barrak.sharetoclipboard.ui.main.*
 import me.barrak.sharetoclipboard.util.*
 
 class CopyActivity : ComponentActivity() {
     private val viewModel: CopyViewModel by viewModels{
         val copyService = CopyService(this)
-        val extractor = CompositeTextExtractor()
-        CopyViewModelFactory(copyService, extractor)
+        val extractor = CompositeTextExtractor(listOf(IdentityTextExtractor(), UriTextExtractor(), NumbersTextExtractor()))
+        val preferencesService = PreferencesService(this)
+        CopyViewModelFactory(copyService, extractor, preferencesService)
     }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        viewModel.onItemCopied += ::notifyUser
 
         // Starting with Android 10 Application cannot read clipboard unless they are fully in foreground
         // Waiting for Activity to fully initialize
@@ -37,19 +40,26 @@ class CopyActivity : ComponentActivity() {
             else viewModel.getCopiedText()
 
             if(sharedText.isNotBlank()) {
-                viewModel.copyItem(sharedText)
-                Toast.makeText(this@CopyActivity, "Text Copied", Toast.LENGTH_SHORT).show()
+                viewModel.processText(sharedText)
+                if(viewModel.items.size == 1 && viewModel.autoCopy) {
+                    viewModel.copyItem(viewModel.items.first())
+                    if(viewModel.autoClose)
+                        finish()
+                }
             }
         }
 
         setContent {
-            App {
-                // A surface container using the 'background' color from the theme
-                Surface(color = MaterialTheme.colors.background) {
-
+            setContent {
+                App {
+                    CopyScreen(viewModel)
                 }
             }
         }
+    }
+
+    private fun notifyUser() {
+        Toast.makeText(applicationContext, getString(R.string.copied_text), Toast.LENGTH_SHORT).show()
     }
 }
 

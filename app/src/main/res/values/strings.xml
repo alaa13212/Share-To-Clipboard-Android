@@ -3,4 +3,14 @@
     <string name="share_copied_text">Share Copied Text</string>
     <string name="procces_clipboard_content">Process Clipboard Content</string>
     <string name="copy">Copy</string>
+    <string name="copied_text">Copied Shared Text</string>
+    <string name="settings">Settings</string>
+    <string name="setting_auto_copy">Auto copy</string>
+    <string name="setting_auto_copy_description">Will auto copy full text if nothing was found to extract</string>
+    <string name="setting_auto_copy_description2">Will not auto copy full text if nothing was found to extract</string>
+    <string name="setting_auto_close">Auto close when copied</string>
+    <string name="setting_auto_close_description">App will close after copy</string>
+    <string name="setting_auto_close_description2">App will not close after copy</string>
+    <string name="extracted_items_list">Items Extracted from Clipboard</string>
+    <string name="click_item_to_copy">Click on item to copy it</string>
 </resources>

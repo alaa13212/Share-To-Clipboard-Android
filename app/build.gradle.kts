@@ -34,6 +34,7 @@ android {
         jvmTarget = "1.8"
         useIR = true
         freeCompilerArgs = freeCompilerArgs + "-Xopt-in=androidx.compose.material.ExperimentalMaterialApi"
+        freeCompilerArgs = freeCompilerArgs + "-Xopt-in=androidx.compose.foundation.ExperimentalFoundationApi"
     }
     buildFeatures {
         compose = true

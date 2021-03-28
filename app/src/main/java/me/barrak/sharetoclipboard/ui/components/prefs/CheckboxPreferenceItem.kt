@@ -3,6 +3,8 @@ package me.barrak.sharetoclipboard.ui.components.prefs
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
+import androidx.compose.material.icons.*
+import androidx.compose.material.icons.rounded.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.*
 import androidx.compose.ui.tooling.preview.*
@@ -15,10 +17,12 @@ fun CheckboxPreferenceItem(
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
+    enabled: Boolean = true,
     description: String? = null,
     uncheckedDescription: String? = description,
-    enabled: Boolean = true,
+    icon: @Composable () -> Unit = { Spacer(Modifier) },
 ) {
+    // Too many calls to Disabled(). It wouldn't be necessary if list Item respect surrounding LocalContentAlpha
     Disabled(!enabled) {
 
         val newModifier = if (enabled)
@@ -28,7 +32,7 @@ fun CheckboxPreferenceItem(
 
         ListItem(
             modifier = newModifier,
-            icon = { Spacer(Modifier) },
+            icon = icon,
             text = { Disabled(!enabled) { Text(text) } },
             secondaryText = if (description != null) {
                 { Disabled(!enabled) { Text(text = if (checked) description else uncheckedDescription!!) } }
@@ -59,11 +63,11 @@ private fun UncheckedPreviewDark() = DarkApp {
 @Preview(showBackground = true, name = "Checked")
 @Composable
 private fun CheckedPreview() = App {
-    CheckboxPreferenceItem("Test Preference", true, {})
+    CheckboxPreferenceItem("Test Preference", true, {}, icon = { Icon(Icons.Rounded.Settings, null)})
 }
 
 @Preview(showBackground = true, name = "Checked Dark")
 @Composable
 private fun CheckedPreviewDark() = DarkApp {
-    CheckboxPreferenceItem("Test Preference", true, {})
+    CheckboxPreferenceItem("Test Preference", true, {}, icon = { Icon(Icons.Rounded.Settings, null)})
 }

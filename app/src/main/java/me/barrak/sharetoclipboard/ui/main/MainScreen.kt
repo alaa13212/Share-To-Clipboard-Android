@@ -4,12 +4,13 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.*
+import androidx.compose.ui.res.*
 import androidx.compose.ui.tooling.preview.*
 import androidx.compose.ui.unit.*
+import me.barrak.sharetoclipboard.R
 import me.barrak.sharetoclipboard.ui.*
 import me.barrak.sharetoclipboard.ui.components.*
 import me.barrak.sharetoclipboard.ui.components.prefs.*
-import java.util.*
 
 
 @Composable
@@ -25,22 +26,22 @@ fun MainScreen(
             Spacer(modifier = Modifier.height(16.dp))
             Column(Modifier.weight(1f)) {
                 PreferenceDivider(false)
-                PreferenceTitle("Settings")
+                PreferenceTitle(stringResource(R.string.settings))
 
                 CheckboxPreferenceItem(
-                    text = "Auto copy",
+                    text = stringResource(R.string.setting_auto_copy),
                     checked = viewModel.autoCopy,
                     onCheckedChange = { viewModel.autoCopy = it },
-                    description = "Will auto copy full text if nothing was found to extract",
-                    uncheckedDescription = "Will not auto copy full text if nothing was found to extract"
+                    description = stringResource(R.string.setting_auto_copy_description),
+                    uncheckedDescription = stringResource(R.string.setting_auto_copy_description2)
                 )
 
                 CheckboxPreferenceItem(
-                    text = "Auto close when copied",
+                    text = stringResource(R.string.setting_auto_close),
                     checked = viewModel.autoClose,
                     onCheckedChange = { viewModel.autoClose = it },
-                    description = "App will close after copy",
-                    uncheckedDescription = "App will not close after copy",
+                    description = stringResource(R.string.setting_auto_close_description),
+                    uncheckedDescription = stringResource(R.string.setting_auto_close_description2),
                     enabled = viewModel.autoCopy
                 )
             }
