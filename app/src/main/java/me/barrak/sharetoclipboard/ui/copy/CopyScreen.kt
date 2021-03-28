@@ -1,20 +1,14 @@
 package me.barrak.sharetoclipboard.ui.copy
 
-import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
-import androidx.compose.foundation.shape.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.*
-import androidx.compose.ui.res.*
 import androidx.compose.ui.tooling.preview.*
-import androidx.compose.ui.unit.*
 import me.barrak.sharetoclipboard.R
-import me.barrak.sharetoclipboard.services.extract.*
 import me.barrak.sharetoclipboard.ui.*
 import me.barrak.sharetoclipboard.ui.components.*
-import java.util.*
 
 @Composable
 fun CopyScreen(
@@ -24,23 +18,23 @@ fun CopyScreen(
         topBar = { AppTopBar() },
     ) {
         Column(Modifier.fillMaxHeight()) {
+            CopyScreenHeader()
+
+            val grouped = viewModel.items.groupBy { it.type }
             LazyColumn {
-                stickyHeader {
-                    Surface(
-                        modifier = Modifier.fillMaxWidth(),
-                        color = MaterialTheme.colors.primaryVariant,
-                    ) {
-                        Column(Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
-                            Text(stringResource(R.string.extracted_items_list), style = MaterialTheme.typography.h6)
-                            Text(stringResource(R.string.click_item_to_copy), style = MaterialTheme.typography.caption)
+                grouped.forEach { (type, items) ->
+                    if(type != R.string.type_full_text) {
+                        stickyHeader {
+                            ListGroupTitle(type)
                         }
                     }
-                }
 
-                items(viewModel.items) { item ->
-                    when(item.elements.size){
-                        0 -> SingleItemCard(text = item, onClick = viewModel::copyItem)
-                        else -> ExtendedItemCard(text = item, onClick = viewModel::copyItem)
+                    items(items) { item ->
+                        when(item.elements.size){
+                            0 -> SingleItemCard(text = item, onClick = viewModel::copyItem)
+                            1, 2, 3 ->  ExtendedItemCard(text = item, onClick = viewModel::copyItem, collapseCut = 4)
+                            else -> ExtendedItemCard(text = item, onClick = viewModel::copyItem, collapseCut = 3)
+                        }
                     }
                 }
             }

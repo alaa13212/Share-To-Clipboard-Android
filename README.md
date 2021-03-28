@@ -6,6 +6,7 @@ Android app that adds "Copy" to Android share sheet. It also provide custom/part
  * Configurable behaviour
  * Extract Numbers with different formats
  * Extract Links with different formats
+ * Extract Emails
 
 ## Planned
  * Release on Play Store
