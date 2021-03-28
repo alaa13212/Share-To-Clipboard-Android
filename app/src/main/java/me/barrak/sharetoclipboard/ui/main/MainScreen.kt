@@ -31,9 +31,9 @@ fun MainScreen(
                     Text(stringResource(R.string.app_welcome))
                     Box(
                         Modifier
+                            .align(Alignment.CenterHorizontally)
                             .padding(top = 16.dp, bottom = 8.dp)
                             .size(96.dp)
-                            .align(Alignment.CenterHorizontally)
                             .clip(RoundedCornerShape(16.dp))
                     ) {
                         Image(painter = painterResource(id = R.drawable.ic_launcher_background), contentDescription = null)

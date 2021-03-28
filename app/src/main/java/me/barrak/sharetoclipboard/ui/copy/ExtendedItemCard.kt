@@ -11,13 +11,11 @@ import androidx.compose.ui.*
 import androidx.compose.ui.res.*
 import androidx.compose.ui.tooling.preview.*
 import androidx.compose.ui.unit.*
+import me.barrak.sharetoclipboard.R
 import me.barrak.sharetoclipboard.services.extract.*
 import me.barrak.sharetoclipboard.ui.*
 import me.barrak.sharetoclipboard.ui.components.*
 import java.util.*
-import kotlin.math.*
-
-import me.barrak.sharetoclipboard.R
 
 @Composable
 fun ExtendedItemCard(
@@ -32,11 +30,15 @@ fun ExtendedItemCard(
         shape = RoundedCornerShape(8.dp),
         elevation = 4.dp,
     ) {
-        var expanded by rememberSaveable(text.primaryElement) { mutableStateOf(text.elements.size < collapseCut) }
-        val elementsToDraw = if(expanded) text.elements.size else min(collapseCut - 1, text.elements.size)
+        var expanded by rememberSaveable(text.primaryElement) { mutableStateOf(false) }
+        val elementsToDraw = if(expanded) text.elements.size else collapseCut - 1
 
         Column() {
-            Column(Modifier.fillMaxWidth().clickable { onClick(text.primaryElement) }.padding(start = 16.dp, top = 20.dp, end = 16.dp, bottom = 18.dp)) {
+            Column(
+                Modifier
+                    .fillMaxWidth()
+                    .clickable { onClick(text.primaryElement) }
+                    .padding(start = 16.dp, top = 20.dp, end = 16.dp, bottom = 18.dp)) {
                 Disabled(true) {
                     Text(
                         text = stringResource(text.type).toUpperCase(Locale.ROOT),
@@ -58,7 +60,7 @@ fun ExtendedItemCard(
                 }
                 for ((index, element) in text.elements.take(elementsToDraw).withIndex()) {
                     if (index != 0)
-                        Divider(Modifier.padding(horizontal = 16.dp))
+                        Divider(Modifier.padding(horizontal = 14.dp))
 
                     Text(
                         modifier = Modifier
@@ -70,17 +72,19 @@ fun ExtendedItemCard(
                     )
                 }
             }
-
-            TextButton(
-                onClick = { expanded = !expanded },
-                modifier = Modifier.fillMaxWidth().height(38.dp),
-            ) {
-                Text(
-                    text = stringResource(if(expanded) R.string.less else R.string.more).toUpperCase(Locale.ROOT),
-                    style = MaterialTheme.typography.body2,
-                )
+            if(collapseCut - 1 < text.elements.size) {
+                TextButton(
+                    onClick = { expanded = !expanded },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(38.dp),
+                ) {
+                    Text(
+                        text = stringResource(if (expanded) R.string.less else R.string.more).toUpperCase(Locale.ROOT),
+                        style = MaterialTheme.typography.body2,
+                    )
+                }
             }
-
         }
     }
 }
