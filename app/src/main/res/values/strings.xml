@@ -13,4 +13,10 @@
     <string name="setting_auto_close_description2">App will not close after copy</string>
     <string name="extracted_items_list">Items Extracted from Clipboard</string>
     <string name="click_item_to_copy">Click on item to copy it</string>
+    <string name="type_full_text">Full Text</string>
+    <string name="type_number">Number</string>
+    <string name="type_link">Link</string>
+    <string name="other_formats">Other Formats</string>
+    <string name="more">More</string>
+    <string name="less">Less</string>
 </resources>
