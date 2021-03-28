@@ -19,7 +19,7 @@ fun PrimaryButton(onClick: () -> Unit) {
         colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary),
         onClick = onClick
     ) {
-        Text(stringResource(me.barrak.sharetoclipboard.R.string.procces_clipboard_content))
+        Text(stringResource(me.barrak.sharetoclipboard.R.string.process_clipboard_content))
     }
 }
 

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Share To Clipboard</string>
     <string name="share_copied_text">Share Copied Text</string>
-    <string name="procces_clipboard_content">Process Clipboard Content</string>
+    <string name="process_clipboard_content">Process Clipboard Content</string>
     <string name="copy">Copy</string>
     <string name="copied_text">Copied Shared Text</string>
     <string name="settings">Settings</string>
@@ -19,4 +19,5 @@
     <string name="other_formats">Other Formats</string>
     <string name="more">More</string>
     <string name="less">Less</string>
+    <string name="app_welcome">Thanks for installing Share To Clipboard.\nTo use this app just use new "Copy" icon in share menu.\nIt will look like this:</string>
 </resources>

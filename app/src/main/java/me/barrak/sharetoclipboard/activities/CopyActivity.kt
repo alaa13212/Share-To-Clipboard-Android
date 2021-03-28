@@ -41,11 +41,8 @@ class CopyActivity : ComponentActivity() {
 
             if(sharedText.isNotBlank()) {
                 viewModel.processText(sharedText)
-                if(viewModel.items.size == 1 && viewModel.autoCopy) {
+                if(viewModel.items.size == 1 && viewModel.autoCopy)
                     viewModel.copyItem(viewModel.items.first().primaryElement)
-                    if(viewModel.autoClose)
-                        finish()
-                }
             }
         }
 
@@ -60,6 +57,9 @@ class CopyActivity : ComponentActivity() {
 
     private fun notifyUser() {
         Toast.makeText(applicationContext, getString(R.string.copied_text), Toast.LENGTH_SHORT).show()
+
+        if(viewModel.autoClose)
+            finish()
     }
 }
 
