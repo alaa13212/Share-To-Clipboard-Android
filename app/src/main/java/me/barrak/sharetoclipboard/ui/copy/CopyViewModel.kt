@@ -2,6 +2,7 @@ package me.barrak.sharetoclipboard.ui.copy
 
 import androidx.compose.runtime.*
 import androidx.lifecycle.*
+import me.barrak.sharetoclipboard.R
 import me.barrak.sharetoclipboard.services.copy.*
 import me.barrak.sharetoclipboard.services.extract.*
 import me.barrak.sharetoclipboard.services.prefs.*
@@ -18,8 +19,9 @@ class CopyViewModel (
 
     override val onItemCopied: Event = Event()
 
-    override val autoCopy get() = preferencesService.autoCopy
+    override val justCopy get() = preferencesService.justCopy
     override val autoClose get() = preferencesService.autoClose
+    override val useExtractors: Boolean get() = preferencesService.useExtractors
 
 
     override fun copyItem(text: String) {
@@ -28,8 +30,13 @@ class CopyViewModel (
     }
 
     override fun processText(text: String) {
-        val list = textExtractor.extractElements(text)
-        items = list.take(1) + list.drop(1).filterNot { it.primaryElement == list.firstOrNull()?.primaryElement && it.elements.isEmpty() }
+        items = if(useExtractors) {
+            val list = textExtractor.extractElements(text)
+            list.take(1) + list.drop(1)
+                .filterNot { it.primaryElement == list.firstOrNull()?.primaryElement && it.elements.isEmpty() }
+        } else {
+            listOf(TextElement(R.string.type_full_text, text, listOf()))
+        }
     }
 
     override fun getCopiedText(): String {

@@ -11,11 +11,11 @@ class MockCopyViewModel : ICopyViewModel {
         TextElement(R.string.type_link, "Hello Text welcome https://stackoverflow.com/questions/22770178/how-can-i-validate-a-url-in-android?dasdsa=dsadsa more text blah blah blah", listOf("https://stackoverflow.com/questions/22770178/how-can-i-validate-a-url-in-android?dasdsa=dsadsa", "https://stackoverflow.com", "stackoverflow.com")),
         TextElement(R.string.type_number, "SA94 5000 0000 0103 6972 5009", listOf("SA9450000000010369725009", "9450000000010369725009", "94", "5000", "0000", "0103", "6972", "5009")),
     )
-    override val onItemCopied: Event
-        get() = Event()
+    override val onItemCopied: Event = Event()
 
-    override val autoCopy = false
-    override val autoClose = false
+    override val justCopy: Boolean = false
+    override val autoClose: Boolean = false
+    override val useExtractors: Boolean = true
 
     override fun copyItem(text: String) {
         logD("copyItem($text)")

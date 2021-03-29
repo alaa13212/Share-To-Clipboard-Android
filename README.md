@@ -7,10 +7,11 @@ Android app that adds "Copy" to Android share sheet. It also provide custom/part
  * Extract Numbers with different formats
  * Extract Links with different formats
  * Extract Emails
+ * Just copy option
 
 ## Planned
  * Release on Play Store
+ * Use service as sharing receiver
  * Extract Dates / Time
- * Copy only option
  * Copy images?
 

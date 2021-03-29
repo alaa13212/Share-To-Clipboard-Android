@@ -5,8 +5,9 @@ import me.barrak.sharetoclipboard.util.*
 class MockMainViewModel : IMainViewModel {
     override val canShareClipboard: Boolean= true
 
-    override var autoCopy: Boolean = true
+    override var justCopy: Boolean = false
     override var autoClose: Boolean = false
+    override var useExtractors: Boolean = true
 
     override fun navigateToCopyActivity() {
         logD("navigateToCopyActivity()")
@@ -14,5 +15,13 @@ class MockMainViewModel : IMainViewModel {
 
     override fun shareClipboard() {
         logD("shareClipboard")
+    }
+
+    override fun shareApp() {
+        logD("shareApp")
+    }
+
+    override fun versionClicked() {
+        logD("versionClicked")
     }
 }

@@ -1,5 +1,5 @@
 package me.barrak.sharetoclipboard.services.navigation
 
 interface INavigationService {
-    fun navigateToCopyActivity()
+    fun navigateToCopyActivity(message: String? = null)
 }

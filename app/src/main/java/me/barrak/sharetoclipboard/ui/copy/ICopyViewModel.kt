@@ -7,8 +7,9 @@ interface ICopyViewModel {
     val items: List<TextElement>
     val onItemCopied: Event
 
-    val autoCopy: Boolean
+    val justCopy: Boolean
     val autoClose: Boolean
+    val useExtractors: Boolean
 
     fun copyItem(text: String)
     fun processText(text: String)

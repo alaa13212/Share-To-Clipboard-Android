@@ -5,9 +5,9 @@
     <string name="copy">Copy</string>
     <string name="copied_text">Copied Shared Text</string>
     <string name="settings">Settings</string>
-    <string name="setting_auto_copy">Auto copy</string>
-    <string name="setting_auto_copy_description">Will auto copy full text if nothing was found to extract</string>
-    <string name="setting_auto_copy_description2">Will not auto copy full text if nothing was found to extract</string>
+    <string name="setting_just_copy">Just copy</string>
+    <string name="setting_just_copy_description">Traditional mode: Will not try to process text and will close immediately</string>
+    <string name="setting_just_copy_description2">Advanced mode: Make full use of text processors</string>
     <string name="setting_auto_close">Auto close when copied</string>
     <string name="setting_auto_close_description">App will close after copy</string>
     <string name="setting_auto_close_description2">App will not close after copy</string>
@@ -22,4 +22,8 @@
     <string name="less">Less</string>
     <string name="app_welcome">Thanks for installing Share To Clipboard.\nTo use this app just use new "Copy" icon in share menu.\nIt will look like this:</string>
     <string name="app_version">App version</string>
+    <string name="share_app">Share App</string>
+    <string name="share_app_description">Share app with your friends</string>
+    <string name="setting_use_extractors">Process Text</string>
+    <string name="setting_use_extractors_description">Try to extract useful snippets from copied text</string>
 </resources>

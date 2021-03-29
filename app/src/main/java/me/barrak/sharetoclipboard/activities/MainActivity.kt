@@ -1,6 +1,7 @@
 package me.barrak.sharetoclipboard.activities
 
 import android.os.*
+import android.widget.*
 import androidx.activity.*
 import androidx.activity.compose.*
 import androidx.compose.runtime.*
@@ -24,12 +25,17 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel.showVersionToast += ::showVersionToast
 
         setContent {
             App {
                 MainScreen(viewModel)
             }
         }
+    }
+
+    private fun showVersionToast() {
+        Toast.makeText(this, "Sorry, no ester egg for you 🙂", Toast.LENGTH_SHORT).show()
     }
 }
 

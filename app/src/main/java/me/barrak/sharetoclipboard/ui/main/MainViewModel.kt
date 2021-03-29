@@ -7,6 +7,7 @@ import me.barrak.sharetoclipboard.services.copy.*
 import me.barrak.sharetoclipboard.services.navigation.*
 import me.barrak.sharetoclipboard.services.prefs.*
 import me.barrak.sharetoclipboard.services.share.*
+import me.barrak.sharetoclipboard.util.events.*
 
 class MainViewModel(
     private val preferencesService: IPreferencesService,
@@ -15,14 +16,17 @@ class MainViewModel(
     private val navigationService: INavigationService,
 ) : ViewModel(), IMainViewModel {
 
+    private var versionCounter = 7
+    val showVersionToast = Event()
+
     override var canShareClipboard by mutableStateOf(copyService.getCopiedText() != null)
 
-    private var _autoCopy by mutableStateOf(preferencesService.autoCopy)
-    override var autoCopy
-        get() = _autoCopy
+    private var _justCopy by mutableStateOf(preferencesService.justCopy)
+    override var justCopy
+        get() = _justCopy
         set(value) {
-            preferencesService.autoCopy = value
-            _autoCopy = value
+            preferencesService.justCopy = value
+            _justCopy = value
         }
 
     private var _autoClose by mutableStateOf(preferencesService.autoClose)
@@ -31,6 +35,14 @@ class MainViewModel(
         set(value) {
             preferencesService.autoClose = value
             _autoClose = value
+        }
+
+    private var _useExtractors by mutableStateOf(preferencesService.useExtractors)
+    override var useExtractors
+        get() = _useExtractors
+        set(value) {
+            preferencesService.useExtractors = value
+            _useExtractors = value
         }
 
     init {
@@ -45,12 +57,22 @@ class MainViewModel(
 
 
     override fun navigateToCopyActivity() {
-        navigationService.navigateToCopyActivity()
+        navigationService.navigateToCopyActivity(copyService.getCopiedText())
     }
 
     override fun shareClipboard() {
         val text = copyService.getCopiedText() ?: return
         shareService.share(text)
+    }
+
+    override fun shareApp() {
+        shareService.share("Check out this utility https://play.google.com/store/apps/details?id=me.barrak.sharetoclipboard")
+    }
+
+    override fun versionClicked() {
+        versionCounter--
+        if(versionCounter < 1)
+            showVersionToast()
     }
 
 }

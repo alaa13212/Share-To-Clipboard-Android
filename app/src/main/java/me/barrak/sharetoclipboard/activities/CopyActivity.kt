@@ -7,8 +7,6 @@ import androidx.activity.*
 import androidx.activity.compose.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.tooling.preview.*
-import androidx.lifecycle.*
-import kotlinx.coroutines.*
 import me.barrak.sharetoclipboard.R
 import me.barrak.sharetoclipboard.services.copy.*
 import me.barrak.sharetoclipboard.services.extract.*
@@ -29,37 +27,45 @@ class CopyActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel.onItemCopied += ::notifyUser
+        val sharedText = getSharedText()
 
-        // Starting with Android 10 Application cannot read clipboard unless they are fully in foreground
-        // Waiting for Activity to fully initialize
-        lifecycle.coroutineScope.launch {
-            delay(100)
-            val sharedText = if(intent?.action == Intent.ACTION_SEND && intent.type == MimeTypeText)
-                intent.getStringExtra(Intent.EXTRA_TEXT) ?: ""
-            else viewModel.getCopiedText()
+        if(sharedText.isNotBlank())
+            processText(sharedText)
 
-            if(sharedText.isNotBlank()) {
-                viewModel.processText(sharedText)
-                if(viewModel.items.size == 1 && viewModel.autoCopy)
-                    viewModel.copyItem(viewModel.items.first().primaryElement)
-            }
-        }
+        viewModel.onItemCopied += ::onItemCopied
 
         setContent {
-            setContent {
-                App {
-                    CopyScreen(viewModel)
-                }
+            App {
+                CopyScreen(viewModel)
             }
         }
     }
 
+    private fun getSharedText() =
+        if (intent?.action == Intent.ACTION_SEND && intent.type == MimeTypeText)
+            intent.getStringExtra(Intent.EXTRA_TEXT) ?: ""
+        else ""
+
+    private fun processText(sharedText: String) {
+        viewModel.copyItem(sharedText)
+        notifyUser()
+
+        if (viewModel.justCopy)
+            finish()
+        else
+            viewModel.processText(sharedText)
+
+    }
+
+    private fun onItemCopied() {
+        notifyUser()
+
+        if(!viewModel.justCopy && viewModel.autoClose)
+            finish()
+    }
+
     private fun notifyUser() {
         Toast.makeText(applicationContext, getString(R.string.copied_text), Toast.LENGTH_SHORT).show()
-
-        if(viewModel.autoClose)
-            finish()
     }
 }
 
