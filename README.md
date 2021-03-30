@@ -3,7 +3,7 @@ Android app that adds "Copy" to Android share sheet. It also provide custom/part
 
 ## Implemented
  * Copy shared text
- * Configurable behaviour
+ * Configurable behavior
  * Extract Numbers with different formats
  * Extract Links with different formats
  * Extract Emails
@@ -11,6 +11,7 @@ Android app that adds "Copy" to Android share sheet. It also provide custom/part
 
 ## Planned
  * Release on Play Store
+ * Add Arabic localization
  * Use service as sharing receiver
  * Extract Dates / Time
  * Copy images?
